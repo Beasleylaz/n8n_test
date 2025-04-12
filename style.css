@@ -425,13 +425,16 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2rem;
+    margin: 2rem auto;
     overflow: hidden;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
 }
 
 .wave-visualization {
     width: 100%;
-    max-width: 600px;
+    max-width: 400px;
     height: 100%;
     position: relative;
     display: flex;
@@ -443,17 +446,18 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     height: 100%;
 }
 
 .wave {
-    width: 4px;
+    width: 6px;
     height: 100%;
     background: linear-gradient(180deg, var(--wave-color-1), var(--wave-color-2));
-    border-radius: 2px;
-    animation: wave-animation 1.5s ease-in-out infinite;
+    border-radius: 3px;
+    animation: wave-animation 1.2s ease-in-out infinite;
     transform-origin: 50% 50%;
+    box-shadow: 0 0 10px var(--wave-color-1);
 }
 
 .wave-1 { animation-delay: -1.4s; }
@@ -466,8 +470,8 @@ h1 {
 
 @keyframes wave-animation {
     0%, 100% {
-        transform: scaleY(0.2);
-        opacity: 0.2;
+        transform: scaleY(0.3);
+        opacity: 0.3;
     }
     50% {
         transform: scaleY(1);
