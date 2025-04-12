@@ -1,14 +1,6 @@
 // ElevenLabs configuration
 const ELEVENLABS_API_KEY = 'sk_c967f90fc1b4c5108e7b0be26e2b434be2c9b54f57dbeb2e';
 
-// Session management
-let sessionId = null;
-
-// Generate a unique session ID
-const generateSessionId = () => {
-    return Math.random().toString(36).substring(2) + Date.now().toString(36);
-};
-
 // Initialize ElevenLabs widget
 const initElevenLabs = () => {
     console.log('Initializing ElevenLabs widget...');
@@ -17,10 +9,6 @@ const initElevenLabs = () => {
         console.error('ElevenLabs widget container not found');
         return;
     }
-
-    // Generate new session ID when widget is initialized
-    sessionId = generateSessionId();
-    console.log('Generated session ID:', sessionId);
 
     // Listen for messages from the ElevenLabs widget
     window.addEventListener('message', (event) => {
@@ -62,9 +50,36 @@ const updateStatus = (status) => {
 };
 
 // Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, initializing...');
-    initElevenLabs();
-    // Set initial status
-    updateStatus('Ready');
+document.addEventListener('DOMContentLoaded', function() {
+    const widget = document.querySelector('elevenlabs-convai');
+    const statusIndicator = document.getElementById('status-indicator');
+    const pulseIndicator = document.getElementById('pulse-indicator');
+
+    // Generate a unique session ID if not exists
+    if (!localStorage.getItem('voiceAgentSessionId')) {
+        localStorage.setItem('voiceAgentSessionId', 'session-' + Date.now());
+    }
+
+    // Update session ID
+    widget.setAttribute('session-id', localStorage.getItem('voiceAgentSessionId'));
+
+    // Widget event listeners
+    widget.addEventListener('conversationStarted', () => {
+        statusIndicator.textContent = 'Listening';
+        statusIndicator.classList.add('listening');
+        pulseIndicator.classList.add('active');
+    });
+
+    widget.addEventListener('conversationEnded', () => {
+        statusIndicator.textContent = 'Ready';
+        statusIndicator.classList.remove('listening');
+        pulseIndicator.classList.remove('active');
+    });
+
+    widget.addEventListener('error', (event) => {
+        console.error('Widget error:', event.detail);
+        statusIndicator.textContent = 'Error';
+        statusIndicator.classList.remove('listening');
+        pulseIndicator.classList.remove('active');
+    });
 }); 
