@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title>Voice Agent Interface</title>
-    <link rel="stylesheet" href="style.css?v=1.0.1">
+    <title>AI Assistant</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="floating-orbs">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
     <div class="container">
         <div class="voice-agent-box">
-            <h1>Voice Agent</h1>
             <div class="voice-container">
-                <div id="pulse-indicator" class="pulse-indicator"></div>
-                <div id="elevenlabs-widget" class="widget-container">
-                    <elevenlabs-convai agent-id="ANe6NgRXZd7BaNRyzbob"></elevenlabs-convai>
-                    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+                <div class="widget-container">
+                    <elevenlabs-convai id="elevenlabs-widget"></elevenlabs-convai>
                 </div>
+                <div class="pulse-indicator" id="pulse-indicator"></div>
             </div>
             <div class="status-container">
-                <div id="status-indicator" class="status-indicator">Ready</div>
+                <div class="status-indicator" id="status-indicator">Ready</div>
             </div>
         </div>
     </div>
-    <script src="script.js?v=1.0.1"></script>
+    <script src="script.js"></script>
 </body>
 </html> 
