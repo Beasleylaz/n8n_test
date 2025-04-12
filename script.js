@@ -4,18 +4,19 @@ const N8N_WEBHOOK_URL = 'https://beasleylaz.app.n8n.cloud/webhook/voice-agent-st
 const PROXY_SERVER_URL = 'https://web-production-56f42.up.railway.app';
 
 // Test webhook connection
-const testWebhookConnection = async () => {
+async function testWebhookConnection() {
     console.log('Testing webhook connection...');
     try {
         // First test if the proxy server is running
-        const proxyTestResponse = await fetch(`${PROXY_SERVER_URL.replace('/proxy', '/test')}`);
+        const proxyTestResponse = await fetch(`${PROXY_SERVER_URL}/test`);
         if (!proxyTestResponse.ok) {
-            throw new Error('Proxy server is not running. Please start it with npm start');
+            throw new Error('Proxy server is not running');
         }
-        console.log('Proxy server is running correctly');
+        const testData = await proxyTestResponse.json();
+        console.log('Proxy server test response:', testData);
 
         // Try with local proxy
-        const proxyResponse = await fetch(`${PROXY_SERVER_URL}?url=${encodeURIComponent(N8N_WEBHOOK_URL)}`, {
+        const proxyResponse = await fetch(`${PROXY_SERVER_URL}/proxy?url=${encodeURIComponent(N8N_WEBHOOK_URL)}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
