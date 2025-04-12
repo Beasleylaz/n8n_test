@@ -22,7 +22,27 @@
 
     <main class="container">
         <div class="voice-agent-box">
-            <div class="title">Voice Agent</div>
+            <div class="voice-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 15c2.21 0 4-1.79 4-4V5c0-2.21-1.79-4-4-4S8 2.79 8 5v6c0 2.21 1.79 4 4 4z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M19 10v1c0 3.87-3.13 7-7 7s-7-3.13-7-7v-1" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 18v4" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="title">voice assistant</div>
+            <div class="wave-container">
+                <div class="wave-visualization">
+                    <div class="wave-group">
+                        <div class="wave wave-1"></div>
+                        <div class="wave wave-2"></div>
+                        <div class="wave wave-3"></div>
+                        <div class="wave wave-4"></div>
+                        <div class="wave wave-5"></div>
+                        <div class="wave wave-6"></div>
+                        <div class="wave wave-7"></div>
+                    </div>
+                </div>
+            </div>
             <div class="content-wrapper">
                 <div class="widget-container">
                     <div class="widget-border-effect"></div>
@@ -30,7 +50,8 @@
                         agent-id="ANe6NgRXZd7BaNRyzbob"
                         session-id=""
                         enable-history="true"
-                        enable-reset="true">
+                        enable-reset="true"
+                        style="--elevenlabs-widget-height: 100%;">
                     </elevenlabs-convai>
                 </div>
             </div>

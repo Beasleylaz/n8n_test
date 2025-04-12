@@ -9,6 +9,8 @@
     --gradient-end: rgba(108, 99, 255, 0.05);
     --orb-color-1: rgba(0, 247, 255, 0.2);
     --orb-color-2: rgba(108, 99, 255, 0.2);
+    --wave-color-1: #00f7ff;
+    --wave-color-2: #6c63ff;
 }
 
 * {
@@ -110,7 +112,23 @@ body::before {
 .widget-container elevenlabs-convai {
     width: 100%;
     height: 100%;
-    display: block;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* Override ElevenLabs widget styles */
+.widget-container elevenlabs-convai::part(container) {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100% !important;
+}
+
+.widget-container elevenlabs-convai::part(footer) {
+    display: none !important; /* Hide the footer with branding */
 }
 
 .pulse-indicator {
@@ -174,6 +192,7 @@ body::before {
     z-index: 2;
     width: fit-content;
     margin: 0 auto;
+    margin-top: auto;
     backdrop-filter: blur(5px);
 }
 
@@ -322,13 +341,14 @@ body::before {
     background: rgba(18, 18, 18, 0.7);
     border-radius: 24px;
     border: 1px solid rgba(0, 247, 255, 0.2);
-    padding: 3rem 2rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 1rem;
     position: relative;
     box-shadow: 0 0 20px rgba(0, 247, 255, 0.1);
     backdrop-filter: blur(10px);
+    min-height: 500px;
 }
 
 @keyframes boxGlow {
@@ -363,6 +383,7 @@ body::before {
     text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
     position: relative;
     z-index: 2;
+    margin-bottom: 1rem;
 }
 
 .content-wrapper {
@@ -371,6 +392,7 @@ body::before {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -2rem; /* Offset the extra space from the widget */
 }
 
 h1 {
@@ -385,4 +407,70 @@ h1 {
         0 0 20px rgba(0, 247, 255, 0.3);
     position: relative;
     z-index: 2;
+}
+
+.voice-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto;
+    color: var(--primary-color);
+    opacity: 0.8;
+    margin-bottom: 1rem;
+}
+
+.wave-container {
+    width: 100%;
+    height: 120px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.wave-visualization {
+    width: 100%;
+    max-width: 600px;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wave-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+}
+
+.wave {
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--wave-color-1), var(--wave-color-2));
+    border-radius: 2px;
+    animation: wave-animation 1.5s ease-in-out infinite;
+    transform-origin: 50% 50%;
+}
+
+.wave-1 { animation-delay: -1.4s; }
+.wave-2 { animation-delay: -1.2s; }
+.wave-3 { animation-delay: -1.0s; }
+.wave-4 { animation-delay: -0.8s; }
+.wave-5 { animation-delay: -0.6s; }
+.wave-6 { animation-delay: -0.4s; }
+.wave-7 { animation-delay: -0.2s; }
+
+@keyframes wave-animation {
+    0%, 100% {
+        transform: scaleY(0.2);
+        opacity: 0.2;
+    }
+    50% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
 } 
