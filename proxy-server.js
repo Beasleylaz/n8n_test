@@ -24,34 +24,35 @@ app.get('/test', (req, res) => {
 app.post('/proxy', async (req, res) => {
   try {
     const targetUrl = req.query.url;
-    console.log(`Proxying request to: ${targetUrl}`);
-    console.log('Request body:', req.body);
-    
-    // Add more detailed request logging
-    console.log('Request headers:', {
-      'Content-Type': 'application/json',
-      'User-Agent': 'n8n-webhook-proxy'
-    });
+    console.log('=== Webhook Request Details ===');
+    console.log(`Target URL: ${targetUrl}`);
+    console.log('Request body:', JSON.stringify(req.body, null, 2));
+    console.log('Request headers:', req.headers);
     
     const response = await axios.post(targetUrl, req.body, {
       headers: {
         'Content-Type': 'application/json',
         'User-Agent': 'n8n-webhook-proxy'
       },
-      // Add timeout and validate status
       timeout: 10000,
       validateStatus: function (status) {
-        return status >= 200 && status < 500; // Accept all responses to handle them properly
+        return status >= 200 && status < 500;
       }
     });
     
+    console.log('=== Webhook Response Details ===');
     console.log('Response status:', response.status);
     console.log('Response headers:', response.headers);
-    console.log('Response data:', response.data);
+    console.log('Response data:', JSON.stringify(response.data, null, 2));
     
     res.status(response.status).send(response.data);
   } catch (error) {
-    console.error('Proxy error:', error.message);
+    console.error('=== Webhook Error Details ===');
+    console.error('Error message:', error.message);
+    if (error.response) {
+      console.error('Error status:', error.response.status);
+      console.error('Error data:', error.response.data);
+    }
     
     // Handle 404 errors specifically
     if (error.response && error.response.status === 404) {
