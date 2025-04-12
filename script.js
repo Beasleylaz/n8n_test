@@ -55,19 +55,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const statusIndicator = document.getElementById('status-indicator');
     const pulseIndicator = document.getElementById('pulse-indicator');
 
-    // Generate a unique session ID if not exists
-    if (!localStorage.getItem('voiceAgentSessionId')) {
-        localStorage.setItem('voiceAgentSessionId', 'session-' + Date.now());
-    }
+    // Generate a unique session ID that matches n8n's expected format
+    const sessionId = 'session_' + Math.random().toString(36).substring(2, 15);
+    
+    // Store session ID in a way that n8n can access
+    window.sessionId = sessionId;
+    localStorage.setItem('sessionId', sessionId);
 
-    // Update session ID
-    widget.setAttribute('session-id', localStorage.getItem('voiceAgentSessionId'));
+    // Update widget with session ID
+    widget.setAttribute('session-id', sessionId);
+
+    // Add session ID to the page for n8n to access
+    const sessionData = document.createElement('div');
+    sessionData.id = 'session-data';
+    sessionData.style.display = 'none';
+    sessionData.dataset.sessionId = sessionId;
+    document.body.appendChild(sessionData);
 
     // Widget event listeners
     widget.addEventListener('conversationStarted', () => {
         statusIndicator.textContent = 'Listening';
         statusIndicator.classList.add('listening');
         pulseIndicator.classList.add('active');
+        
+        // Broadcast session event
+        const event = new CustomEvent('sessionUpdate', {
+            detail: { sessionId: sessionId }
+        });
+        window.dispatchEvent(event);
     });
 
     widget.addEventListener('conversationEnded', () => {
@@ -82,4 +97,9 @@ document.addEventListener('DOMContentLoaded', function() {
         statusIndicator.classList.remove('listening');
         pulseIndicator.classList.remove('active');
     });
+
+    // Make session ID available via a function
+    window.getSessionId = function() {
+        return sessionId;
+    };
 }); 

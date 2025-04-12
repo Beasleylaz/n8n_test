@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Assistant</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        // Initialize session ID before widget loads
+        window.initialSessionId = 'session_' + Math.random().toString(36).substring(2, 15);
+    </script>
 </head>
 <body>
     <div class="floating-orbs">
@@ -19,9 +23,10 @@
                 <div class="widget-container">
                     <elevenlabs-convai 
                         agent-id="ANe6NgRXZd7BaNRyzbob"
-                        session-id="test-session-1"
+                        session-id=""
                         enable-history="true"
-                        enable-reset="true">
+                        enable-reset="true"
+                        data-session-key="{{ $json.sessionId }}">
                     </elevenlabs-convai>
                     <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
                 </div>
