@@ -4,7 +4,9 @@
   "description": "Proxy server for n8n webhooks",
   "main": "proxy-server.js",
   "scripts": {
-    "start": "node proxy-server.js"
+    "start": "node proxy-server.js",
+    "dev": "node proxy-server.js",
+    "build": "echo 'No build step required'"
   },
   "dependencies": {
     "express": "^4.18.2",
@@ -12,6 +14,6 @@
     "axios": "^1.6.2"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": "18.x"
   }
 } 
