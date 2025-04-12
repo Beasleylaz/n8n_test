@@ -29,10 +29,19 @@ app.post('/proxy', async (req, res) => {
     console.log('Request body:', JSON.stringify(req.body, null, 2));
     console.log('Request headers:', req.headers);
     
-    const response = await axios.post(targetUrl, req.body, {
+    // Format the request body for n8n
+    const webhookData = {
+      json: req.body,
+      headers: req.headers,
+      query: req.query,
+      timestamp: new Date().toISOString()
+    };
+    
+    const response = await axios.post(targetUrl, webhookData, {
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'n8n-webhook-proxy'
+        'User-Agent': 'n8n-webhook-proxy',
+        'X-Webhook-Source': 'proxy-server'
       },
       timeout: 10000,
       validateStatus: function (status) {
@@ -54,13 +63,13 @@ app.post('/proxy', async (req, res) => {
       console.error('Error data:', error.response.data);
     }
     
-    // Handle 404 errors specifically
+    // Handle n8n specific errors
     if (error.response && error.response.status === 404) {
-      console.error('Webhook URL not found. Please check your n8n workflow configuration.');
+      console.error('n8n webhook not found or inactive');
       return res.status(404).send({ 
-        error: 'Webhook URL not found', 
-        message: 'The webhook URL does not exist or the n8n workflow is not active.',
-        details: error.message
+        error: 'Webhook not found', 
+        message: 'The n8n webhook does not exist or the workflow is not active.',
+        details: 'Please check if the webhook node is activated in your n8n workflow.'
       });
     }
     
