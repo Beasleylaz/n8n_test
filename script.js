@@ -1,21 +1,21 @@
 // ElevenLabs configuration
 const ELEVENLABS_API_KEY = 'sk_c967f90fc1b4c5108e7b0be26e2b434be2c9b54f57dbeb2e';
 const N8N_WEBHOOK_URL = 'https://beasleylaz.app.n8n.cloud/webhook/voice-agent-started';
-const LOCAL_PROXY = 'http://localhost:3001/proxy';
+const PROXY_SERVER_URL = 'https://web-production-56f42.up.railway.app';
 
 // Test webhook connection
 const testWebhookConnection = async () => {
     console.log('Testing webhook connection...');
     try {
         // First test if the proxy server is running
-        const proxyTestResponse = await fetch(`${LOCAL_PROXY.replace('/proxy', '/test')}`);
+        const proxyTestResponse = await fetch(`${PROXY_SERVER_URL.replace('/proxy', '/test')}`);
         if (!proxyTestResponse.ok) {
             throw new Error('Proxy server is not running. Please start it with npm start');
         }
         console.log('Proxy server is running correctly');
 
         // Try with local proxy
-        const proxyResponse = await fetch(`${LOCAL_PROXY}?url=${encodeURIComponent(N8N_WEBHOOK_URL)}`, {
+        const proxyResponse = await fetch(`${PROXY_SERVER_URL}?url=${encodeURIComponent(N8N_WEBHOOK_URL)}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const notifyN8N = async (event) => {
         console.log('Webhook payload:', payload);
 
         // Use local proxy
-        const proxyResponse = await fetch(`${LOCAL_PROXY}?url=${encodeURIComponent(N8N_WEBHOOK_URL)}`, {
+        const proxyResponse = await fetch(`${PROXY_SERVER_URL}?url=${encodeURIComponent(N8N_WEBHOOK_URL)}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
