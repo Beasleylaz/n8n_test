@@ -1,7 +1,7 @@
 // ElevenLabs configuration
 const ELEVENLABS_API_KEY = 'sk_c967f90fc1b4c5108e7b0be26e2b434be2c9b54f57dbeb2e';
 const N8N_WEBHOOK_URL = 'https://beasleylaz.app.n8n.cloud/webhook/voice-agent-started';
-const PROXY_SERVER_URL = 'https://web-production-56f42.up.railway.app';
+const PROXY_SERVER_URL = 'https://n8n-webhook-proxy.onrender.com';
 
 // Test webhook connection
 async function testWebhookConnection() {
