@@ -8,6 +8,18 @@ const port = process.env.PORT || 3002;
 app.use(cors());
 app.use(express.json());
 
+// Add logging middleware
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+});
+
+// Add a test endpoint
+app.get('/test', (req, res) => {
+    console.log('Test endpoint hit');
+    res.json({ status: 'ok', message: 'Proxy server is running correctly!' });
+});
+
 // Proxy endpoint
 app.post('/proxy', async (req, res) => {
   try {
@@ -78,16 +90,16 @@ app.post('/proxy', async (req, res) => {
   }
 });
 
-// Add a test endpoint
-app.get('/test', (req, res) => {
-  res.send('Proxy server is running correctly!');
+// Add a root endpoint
+app.get('/', (req, res) => {
+    res.json({ status: 'ok', message: 'Proxy server is running' });
 });
 
 app.listen(port, '0.0.0.0', (err) => {
-  if (err) {
-    console.error('Error starting server:', err);
-    process.exit(1);
-  }
-  console.log(`Proxy server running at http://localhost:${port}`);
-  console.log(`Test the server at http://localhost:${port}/test`);
+    if (err) {
+        console.error('Error starting server:', err);
+        process.exit(1);
+    }
+    console.log(`Proxy server running at http://localhost:${port}`);
+    console.log(`Test the server at http://localhost:${port}/test`);
 }); 
