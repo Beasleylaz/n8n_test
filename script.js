@@ -3,6 +3,14 @@ const ELEVENLABS_API_KEY = 'sk_c967f90fc1b4c5108e7b0be26e2b434be2c9b54f57dbeb2e'
 const N8N_WEBHOOK_URL = 'https://beasleylaz.app.n8n.cloud/webhook-test/voice-agent-started';
 const PROXY_SERVER_URL = 'https://n8n-webhook-proxy.onrender.com';
 
+// Session management
+let sessionId = null;
+
+// Generate a unique session ID
+const generateSessionId = () => {
+    return Math.random().toString(36).substring(2) + Date.now().toString(36);
+};
+
 // Test webhook connection
 async function testWebhookConnection() {
     console.log('Testing webhook connection...');
@@ -57,6 +65,10 @@ const initElevenLabs = () => {
         return;
     }
 
+    // Generate new session ID when widget is initialized
+    sessionId = generateSessionId();
+    console.log('Generated session ID:', sessionId);
+
     // Listen for messages from the ElevenLabs widget
     window.addEventListener('message', (event) => {
         console.log('Received message from widget:', event.data);
@@ -100,12 +112,12 @@ const notifyN8N = async (event) => {
     try {
         const payload = {
             event,
+            sessionId,
             timestamp: new Date().toISOString(),
             source: 'voice_agent'
         };
         console.log('Webhook payload:', payload);
 
-        // Use local proxy
         const proxyResponse = await fetch(`${PROXY_SERVER_URL}/proxy?url=${encodeURIComponent(N8N_WEBHOOK_URL)}`, {
             method: 'POST',
             headers: {
