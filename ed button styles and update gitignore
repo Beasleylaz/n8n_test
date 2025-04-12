@@ -1,0 +1,36 @@
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mindex 24d4ec8..f784876 100644[m
+[1m--- a/.gitignore[m
+[1m+++ b/.gitignore[m
+[36m@@ -1,25 +1,6 @@[m
+[31m-# Dependencies[m
+ node_modules/[m
+[31m-npm-debug.log[m
+[31m-yarn-debug.log[m
+[31m-yarn-error.log[m
+[31m-[m
+[31m-# Environment variables[m
+ .env[m
+[31m-.env.local[m
+[31m-.env.*.local[m
+[31m-[m
+[31m-# IDE[m
+[31m-.idea/[m
+[31m-.vscode/[m
+[31m-*.swp[m
+[31m-*.swo[m
+[31m-[m
+[31m-# OS[m
+ .DS_Store[m
+[31m-Thumbs.db[m
+[31m-[m
+[31m-# Build[m
+[31m-dist/[m
+[31m-build/[m
+[31m-*.log [m
+\ No newline at end of file[m
+[32m+[m[32mnpm-debug.log*[m
+[32m+[m[32myarn-debug.log*[m
+[32m+[m[32myarn-error.log*[m[41m [m
+\ No newline at end of file[m

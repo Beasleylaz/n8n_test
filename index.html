@@ -12,11 +12,11 @@
         <div class="orb"></div>
         <div class="orb"></div>
     </div>
-    <div class="container">
+    
+    <main class="container">
         <div class="voice-agent-box">
-            <h1>Voice Agent</h1>
-            <div class="voice-container">
-                <canvas id="voice-visualizer"></canvas>
+            <div class="title">Voice Agent</div>
+            <div class="content-wrapper">
                 <div class="widget-container">
                     <elevenlabs-convai 
                         agent-id="ANe6NgRXZd7BaNRyzbob"
@@ -25,14 +25,11 @@
                         enable-reset="true">
                     </elevenlabs-convai>
                 </div>
-                <div class="status-container">
-                    <div class="status-indicator" id="status-indicator">Ready</div>
-                </div>
+                <div class="status-indicator">READY</div>
             </div>
         </div>
-    </div>
+    </main>
+
     <script src="https://elevenlabs.io/convai-widget/index.js"></script>
-    <script src="voice-visualizer.js"></script>
-    <script src="script.js"></script>
 </body>
 </html> 
