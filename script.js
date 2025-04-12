@@ -62,9 +62,11 @@ const initElevenLabs = () => {
         console.log('Received message from widget:', event.data);
         if (event.data.type === 'voice_started') {
             togglePulseIndicator(true);
+            updateStatus('Listening');
             notifyN8N('voice_started');
         } else if (event.data.type === 'voice_ended') {
             togglePulseIndicator(false);
+            updateStatus('Ready');
             notifyN8N('voice_ended');
         }
     });
@@ -81,6 +83,17 @@ const togglePulseIndicator = (isActive) => {
     }
 };
 
+// Update status indicator
+const updateStatus = (status) => {
+    const statusIndicator = document.getElementById('status-indicator');
+    statusIndicator.textContent = status;
+    if (status === 'Listening') {
+        statusIndicator.classList.add('listening');
+    } else {
+        statusIndicator.classList.remove('listening');
+    }
+};
+
 // Notify n8n webhook
 const notifyN8N = async (event) => {
     console.log('Sending webhook notification:', event);
@@ -93,7 +106,7 @@ const notifyN8N = async (event) => {
         console.log('Webhook payload:', payload);
 
         // Use local proxy
-        const proxyResponse = await fetch(`${PROXY_SERVER_URL}?url=${encodeURIComponent(N8N_WEBHOOK_URL)}`, {
+        const proxyResponse = await fetch(`${PROXY_SERVER_URL}/proxy?url=${encodeURIComponent(N8N_WEBHOOK_URL)}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -8,17 +8,18 @@
 </head>
 <body>
     <div class="container">
-        <h1>Voice Agent Interface</h1>
-        <div class="voice-container">
-            <div id="pulse-indicator" class="pulse-indicator"></div>
-            <div id="elevenlabs-widget">
-                <elevenlabs-convai agent-id="ANe6NgRXZd7BaNRyzbob"></elevenlabs-convai>
-                <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+        <div class="voice-agent-box">
+            <h1>Voice Agent</h1>
+            <div class="voice-container">
+                <div id="pulse-indicator" class="pulse-indicator"></div>
+                <div id="elevenlabs-widget" class="widget-container">
+                    <elevenlabs-convai agent-id="ANe6NgRXZd7BaNRyzbob"></elevenlabs-convai>
+                    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+                </div>
             </div>
-        </div>
-        <div class="button-container">
-            <button id="test-webhook" class="test-button">Test Webhook Connection</button>
-            <button id="chat-button" class="chat-button">Start Chat</button>
+            <div class="status-container">
+                <div id="status-indicator" class="status-indicator">Ready</div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
