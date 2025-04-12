@@ -3,12 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Assistant</title>
+    <title>Voice Agent</title>
     <link rel="stylesheet" href="style.css">
-    <script>
-        // Initialize session ID before widget loads
-        window.initialSessionId = 'session_' + Math.random().toString(36).substring(2, 15);
-    </script>
 </head>
 <body>
     <div class="floating-orbs">
@@ -20,26 +16,22 @@
         <div class="voice-agent-box">
             <h1>Voice Agent</h1>
             <div class="voice-container">
-                <div class="visualizer-container">
-                    <canvas id="voice-visualizer"></canvas>
-                </div>
+                <canvas id="voice-visualizer"></canvas>
                 <div class="widget-container">
                     <elevenlabs-convai 
                         agent-id="ANe6NgRXZd7BaNRyzbob"
                         session-id=""
                         enable-history="true"
-                        enable-reset="true"
-                        data-session-key="{{ $json.sessionId }}">
+                        enable-reset="true">
                     </elevenlabs-convai>
-                    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
                 </div>
-                <div class="pulse-indicator" id="pulse-indicator"></div>
-            </div>
-            <div class="status-container">
-                <div class="status-indicator" id="status-indicator">Ready</div>
+                <div class="status-container">
+                    <div class="status-indicator" id="status-indicator">Ready</div>
+                </div>
             </div>
         </div>
     </div>
+    <script src="https://elevenlabs.io/convai-widget/index.js"></script>
     <script src="voice-visualizer.js"></script>
     <script src="script.js"></script>
 </body>
