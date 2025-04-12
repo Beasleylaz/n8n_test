@@ -44,20 +44,24 @@ body::before {
 
 .container {
     width: 100%;
-    max-width: 1000px;
-    padding: 2rem;
+    height: 100vh;
+    max-width: 100%;
+    padding: 0;
     position: relative;
     z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .voice-container {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
-    gap: 2rem;
 }
 
 .visualizer-container {
@@ -83,54 +87,15 @@ body::before {
 .widget-container {
     position: relative;
     z-index: 2;
-    background-color: rgba(18, 18, 18, 0.6);
+    background-color: transparent;
     border-radius: 16px;
-    padding: 1.5rem;
-    box-shadow: 
-        0 0 30px rgba(0, 247, 255, 0.1),
-        inset 0 0 20px rgba(0, 247, 255, 0.05);
-    border: 1px solid rgba(0, 247, 255, 0.15);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
     width: 100%;
-    max-width: 800px;
-    height: 500px;
+    max-width: none;
+    height: auto;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: translateY(0);
-    transition: transform 0.3s ease;
-}
-
-.widget-container:hover {
-    transform: translateY(-5px);
-}
-
-.widget-container::before,
-.widget-container::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
-}
-
-.widget-container::before {
-    top: -1px;
-    left: 0;
-    animation: scanline 2s linear infinite;
-}
-
-.widget-container::after {
-    bottom: -1px;
-    right: 0;
-    animation: scanline 2s linear infinite reverse;
-}
-
-@keyframes scanline {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
 }
 
 .widget-container elevenlabs-convai {
@@ -138,8 +103,8 @@ body::before {
     overflow: hidden;
     display: block;
     width: 100%;
-    height: 100%;
-    min-height: 500px;
+    height: auto;
+    min-height: 0;
 }
 
 .pulse-indicator {
@@ -184,9 +149,10 @@ body::before {
 }
 
 .status-container {
-    text-align: center;
-    margin-top: 1.5rem;
-    position: relative;
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 2;
 }
 
@@ -286,18 +252,20 @@ body::before {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 24px;
-    padding: 3rem;
+    padding: 2rem;
     box-shadow: 
         0 0 40px rgba(0, 247, 255, 0.1),
         inset 0 0 20px rgba(0, 247, 255, 0.05);
     border: 1px solid rgba(0, 247, 255, 0.1);
     position: relative;
     overflow: hidden;
-    min-height: 800px;
+    width: 90%;
+    max-width: 600px;
+    aspect-ratio: 4/3;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     animation: boxGlow 4s ease-in-out infinite;
 }
 
@@ -326,8 +294,8 @@ body::before {
 
 h1 {
     text-align: center;
-    margin-bottom: 2.5rem;
-    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 2rem;
     font-weight: 200;
     letter-spacing: 4px;
     color: var(--primary-color);
